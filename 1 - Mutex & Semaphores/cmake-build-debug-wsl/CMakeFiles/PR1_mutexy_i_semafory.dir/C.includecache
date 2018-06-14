@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/x/SO/PR1_mutexy_i_semafory/main.c
+stdlib.h
+-
+stdio.h
+-
+semaphore.h
+-
+time.h
+-
+pthread.h
+-
+math.h
+-
+string.h
+-
+unistd.h
+-
+

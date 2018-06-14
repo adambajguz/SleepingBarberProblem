@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG   CMakeFiles/PR1_mutexy_i_semafory.dir/main.c.o CMakeFiles/PR1_mutexy_i_semafory.dir/clients_queue.c.o CMakeFiles/PR1_mutexy_i_semafory.dir/utils.c.o CMakeFiles/PR1_mutexy_i_semafory.dir/barber.c.o  -o PR1_mutexy_i_semafory 

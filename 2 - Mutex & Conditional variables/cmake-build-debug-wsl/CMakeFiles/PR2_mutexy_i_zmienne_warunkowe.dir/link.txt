@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/PR2_mutexy_i_zmienne_warunkowe.dir/main.c.o CMakeFiles/PR2_mutexy_i_zmienne_warunkowe.dir/clients_queue.c.o CMakeFiles/PR2_mutexy_i_zmienne_warunkowe.dir/utils.c.o CMakeFiles/PR2_mutexy_i_zmienne_warunkowe.dir/barber.c.o  -o PR2_mutexy_i_zmienne_warunkowe 

@@ -1,0 +1,3 @@
+/mnt/x/SO/PR1_mutexy_i_semafory/cmake-build-debug-wsl/CMakeFiles/rebuild_cache.dir
+/mnt/x/SO/PR1_mutexy_i_semafory/cmake-build-debug-wsl/CMakeFiles/edit_cache.dir
+/mnt/x/SO/PR1_mutexy_i_semafory/cmake-build-debug-wsl/CMakeFiles/PR1_mutexy_i_semafory.dir
