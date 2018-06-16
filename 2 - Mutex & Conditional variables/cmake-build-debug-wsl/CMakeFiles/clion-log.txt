@@ -1,4 +1,4 @@
-CMake executable is incorrect Configure
-
-Cannot get compiler information:
-	Error connecting to remote host localhost: Connection refused: connect
+/usr/local/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/x/SO/PR2_mutexy_i_zmienne_warunkowe
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/x/SO/PR2_mutexy_i_zmienne_warunkowe/cmake-build-debug-wsl

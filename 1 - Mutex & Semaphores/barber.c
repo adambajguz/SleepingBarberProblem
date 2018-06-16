@@ -7,7 +7,7 @@ void barber_thread(struct BarberData *data) {
         */
         sem_wait(&data->client_is_ready);
 
-        /* Blokada dostępu do zmiany stanu poczekalni, poniewąż bedziemy zmieniać stan krzeseł
+        /* Blokada dostępu do zmiany stanu poczekalni, ponieważ będziemy zmieniać stan krzeseł
            i nie chcemy aby inny wątek zmienił ich stan.
 
            Zmiana stanu krzeseł jest spowodowana wezwaniem kolejnego klienta na strzyżenie.
@@ -41,7 +41,7 @@ void barber_thread(struct BarberData *data) {
 }
 
 void customer_thread(struct BarberData *data) {
-    /* Blokada dostępu do zmiany stanu poczekalni (liczbę wolnych krzeseł), poniewąż bedziemy zmieniać stan krzeseł
+    /* Blokada dostępu do zmiany stanu poczekalni (liczbę wolnych krzeseł), ponieważ będziemy zmieniać stan krzeseł
       i nie chcemy aby inny wątek zmienił ich stan.
 
       Zmiana stanu krzeseł jest spowodowana przyjściem nowego klienta na strzyżenie.
@@ -50,8 +50,19 @@ void customer_thread(struct BarberData *data) {
 
     data->total_clients_num++;
 
-    // Jeśli jest miejsce w poczekalni
-    if (data->clients_waiting_num < data->chairs_num) {
+    // Jeśli nie ma miejsca w poczekalni
+    if (data->clients_waiting_num >= data->chairs_num) {
+        // Wpisujemy że klient zrezygnował ze strzyżenia
+        queue_add_client(&(data->resigned_clients_queue), data->total_clients_num);
+        data->resigned_clients_num++;
+
+        print_str("New client resigned!\n");
+
+        print_info(data);
+
+        // Odblokowujemy dostęp do zmiany stanu poczekalni bo klient już przyszedł ale nie został w poczekalni.
+        pthread_mutex_unlock(&data->chair_access_lock);
+    } else {
         data->clients_waiting_num++;
 
         struct Client *newClient = queue_add_client(&(data->clients_to_barber_queue), data->total_clients_num);
@@ -69,17 +80,6 @@ void customer_thread(struct BarberData *data) {
 
         // Klient oczekuje aż skończy się jego strzyżenie
         sem_wait(&newClient->was_already_cut);
-    } else {
-        // Wpisujemy że klient zrezygnował ze strzyżenia
-        queue_add_client(&(data->resigned_clients_queue), data->total_clients_num);
-        data->resigned_clients_num++;
-
-        print_str("New client resigned!\n");
-
-        print_info(data);
-
-        // Odblokowujemy dostęp do zmiany stanu poczekalni bo klient już przyszedł ale nie został w poczekalni.
-        pthread_mutex_unlock(&data->chair_access_lock);
     }
 }
 

@@ -13,6 +13,8 @@
 
 void parse_args(int argc, char *argv[], struct BarberData *data);
 
+void print_error();
+
 void init_thread(pthread_t *thread, void *(*__start_routine)(void *), struct BarberData *data);
 
 int main(int argc, char *argv[]) {
@@ -40,22 +42,33 @@ int main(int argc, char *argv[]) {
         init_thread(&customers_thread, (void *) customer_thread, &data);
     }
 
+    // Wait for termination ob barbers_thread
     pthread_join(barbers_thread, NULL);
+
     return 0;
 }
 
 void parse_args(int argc, char *argv[], struct BarberData *data) {
     if (argc < 2) {
-        perror("No number of chairs given!\n");
+        print_error();
+
         exit(-1);
     } else {
         data->chairs_num = atoi(argv[1]);
 
-        if (argc >= 3 && strncmp(argv[2], "-debug", 6) == 0)
+        if ( data->chairs_num == 0) {
+            print_error();
+            exit(-1);
+        }
+        else if (argc >= 3 && strncmp(argv[2], "-debug", 6) == 0)
             data->debug = true;
     }
 }
 
+void print_error() {
+    print_str("No or invalid number of chairs given!\n=====\n\n");
+    print_str("main [N] [-debug]\n\tN - nuber of chairs\n\t-debug - show debug info\n");
+}
 
 void init_thread(pthread_t *thread, void *(*function)(void *), struct BarberData *data) {
     int error = pthread_create(thread, NULL, function, data);
